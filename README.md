@@ -1,1 +1,1 @@
-# event-driven-ecommerce
+# Event Driven Ecommerce (Ede)
