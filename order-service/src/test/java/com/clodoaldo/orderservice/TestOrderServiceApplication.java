@@ -1,4 +1,4 @@
-package com.clodoaldo.order_service;
+package com.clodoaldo.orderservice;
 
 import org.springframework.boot.SpringApplication;
 

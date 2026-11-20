@@ -1,4 +1,4 @@
-package com.clodoaldo.order_service;
+package com.clodoaldo.orderservice;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

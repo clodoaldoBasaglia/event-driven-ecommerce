@@ -17,3 +17,12 @@ spring:
 logging:
   level:
     com.clodoaldo: DEBUG
+
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
+  tracing:
+    sampling:
+      probability: 1.0

@@ -1,4 +1,4 @@
-package com.clodoaldo.order_service;
+package com.clodoaldo.orderservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
