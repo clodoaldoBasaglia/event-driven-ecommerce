@@ -26,6 +26,12 @@ import java.util.UUID;
 
 import static java.util.Objects.isNull;
 
+/**
+ * Domain que representa a tabela orders.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Entity
 @Table(name = "orders")
 @Getter

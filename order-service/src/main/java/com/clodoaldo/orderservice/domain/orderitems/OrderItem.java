@@ -15,6 +15,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * Domain que representa a tabela order_items.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Entity
 @Table(name = "order_items")
 @Getter

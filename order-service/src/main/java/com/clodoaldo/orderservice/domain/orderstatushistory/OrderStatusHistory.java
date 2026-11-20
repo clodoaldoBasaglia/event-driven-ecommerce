@@ -20,6 +20,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+/**
+ * Domain que representa a tabela order_status_history.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Entity
 @Table(name = "order_status_history")
 @Getter

@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * Domain que representa .
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
