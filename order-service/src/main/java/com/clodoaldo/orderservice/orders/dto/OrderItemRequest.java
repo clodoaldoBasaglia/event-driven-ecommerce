@@ -10,6 +10,12 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * DTO de entrada com os dados de um item do pedido.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 public record OrderItemRequest(
         @NotNull UUID productId,
         @NotBlank @Size(max = 200) String productName,

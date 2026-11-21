@@ -10,6 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.json.JsonMapper;
 
+/**
+ * Consumer Kafka do evento {@code stock.reserved}; move o pedido para
+ * {@code STOCK_RESERVED} via Saga.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

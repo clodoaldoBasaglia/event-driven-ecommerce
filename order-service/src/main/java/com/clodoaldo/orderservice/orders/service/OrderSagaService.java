@@ -15,6 +15,13 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Orquestra as transições de status do pedido a partir dos eventos da Saga
+ * coreografada, incluindo a compensação.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Service
 @RequiredArgsConstructor
 public class OrderSagaService {

@@ -7,6 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+/**
+ * Controle de idempotência dos consumidores via {@code processed_event}.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Service
 @RequiredArgsConstructor
 public class ProcessedEventService {

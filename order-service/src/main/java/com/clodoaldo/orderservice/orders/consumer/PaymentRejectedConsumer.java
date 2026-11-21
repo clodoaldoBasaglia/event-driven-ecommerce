@@ -10,6 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.json.JsonMapper;
 
+/**
+ * Consumer Kafka do evento {@code payment.rejected}; cancela o pedido e grava
+ * a compensação {@code OrderCancelled} via Saga.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -24,10 +31,13 @@ public class PaymentRejectedConsumer {
     @KafkaListener(topics = "payment.rejected", groupId = "order-service")
     @Transactional
     public void onMessage(String payload) {
+
         PaymentRejectedEvent event = jsonMapper.readValue(payload, PaymentRejectedEvent.class);
 
         if (!processedEventService.markProcessed(event.eventId(), HANDLER)) {
+
             log.info("Duplicate PaymentRejected event {} ignored", event.eventId());
+
             return;
         }
 

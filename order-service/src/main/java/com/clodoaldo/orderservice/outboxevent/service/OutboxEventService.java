@@ -6,6 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Persiste eventos no Outbox (padrão Outbox) para publicação posterior.
+ *
+ * @author clodoaldo
+ * @since 0.0.1 (20/11/2026)
+ */
 @Service
 @RequiredArgsConstructor
 public class OutboxEventService {
