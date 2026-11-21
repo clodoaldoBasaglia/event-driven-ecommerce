@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.service.outboxevent;
+package com.clodoaldo.orderservice.outboxevent.service;
 
 import org.springframework.stereotype.Service;
 

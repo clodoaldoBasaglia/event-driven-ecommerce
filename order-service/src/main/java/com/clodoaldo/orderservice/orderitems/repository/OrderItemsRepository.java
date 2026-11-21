@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.repository.orderitems;
+package com.clodoaldo.orderservice.orderitems.repository;
 
 import com.clodoaldo.orderservice.domain.orderitems.*;
 import org.springframework.stereotype.Repository;

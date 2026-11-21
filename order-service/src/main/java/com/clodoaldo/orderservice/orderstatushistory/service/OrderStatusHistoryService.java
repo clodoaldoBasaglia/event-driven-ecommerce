@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.service.orderstatushistory;
+package com.clodoaldo.orderservice.orderstatushistory.service;
 
 import org.springframework.stereotype.Service;
 

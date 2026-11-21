@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.service.orderitems;
+package com.clodoaldo.orderservice.orderitems.service;
 
 import org.springframework.stereotype.Service;
 

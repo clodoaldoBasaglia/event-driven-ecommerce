@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.repository.orderstatushistory;
+package com.clodoaldo.orderservice.orderstatushistory.repository;
 
 import com.clodoaldo.orderservice.domain.orderstatushistory.*;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.service.processedevent;
+package com.clodoaldo.orderservice.processedevent.service;
 
 import org.springframework.stereotype.Service;
 

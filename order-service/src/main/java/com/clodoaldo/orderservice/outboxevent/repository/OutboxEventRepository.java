@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.repository.outboxevent;
+package com.clodoaldo.orderservice.outboxevent.repository;
 
 import com.clodoaldo.orderservice.domain.outboxevent.OutboxEvent;
 import org.springframework.stereotype.Repository;

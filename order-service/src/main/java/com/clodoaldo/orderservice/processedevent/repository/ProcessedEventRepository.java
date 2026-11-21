@@ -1,4 +1,4 @@
-package com.clodoaldo.orderservice.repository.processedevent;
+package com.clodoaldo.orderservice.processedevent.repository;
 
 import com.clodoaldo.orderservice.domain.processedevent.ProcessedEvent;
 import org.springframework.stereotype.Repository;
