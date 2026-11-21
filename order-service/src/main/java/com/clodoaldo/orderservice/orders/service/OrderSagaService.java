@@ -3,6 +3,7 @@ package com.clodoaldo.orderservice.orders.service;
 import com.clodoaldo.orderservice.domain.orders.Order;
 import com.clodoaldo.orderservice.domain.orders.OrderStatus;
 import com.clodoaldo.orderservice.domain.outboxevent.OutboxEvent;
+import com.clodoaldo.orderservice.orders.event.OrderApprovedEvent;
 import com.clodoaldo.orderservice.orders.event.OrderCancelledEvent;
 import com.clodoaldo.orderservice.orders.repository.OrdersRepository;
 import com.clodoaldo.orderservice.outboxevent.service.OutboxEventService;
@@ -29,6 +30,8 @@ public class OrderSagaService {
     private static final String ORDER_AGGREGATE = "Order";
     private static final String ORDER_CANCELLED_EVENT = "OrderCancelled";
     private static final String ORDER_CANCELLED_TOPIC = "order.cancelled";
+    private static final String ORDER_APPROVED_EVENT = "OrderApproved";
+    private static final String ORDER_APPROVED_TOPIC = "order.approved";
 
     private final OrdersRepository ordersRepository;
     private final OutboxEventService outboxEventService;
@@ -36,16 +39,37 @@ public class OrderSagaService {
 
     @Transactional
     public void onStockReserved(UUID orderId) {
-        Order order = ordersRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalStateException("Order not found: " + orderId));
+        Order order = findOrder(orderId);
 
         order.reserveStock();
     }
 
     @Transactional
+    public void onStockRejected(UUID orderId, String reason) {
+        Order order = findOrder(orderId);
+
+        if (order.getStatus() == OrderStatus.CANCELLED) {
+            return;
+        }
+
+        order.cancel(reason);
+    }
+
+    @Transactional
+    public void onPaymentApproved(UUID orderId) {
+        Order order = findOrder(orderId);
+
+        if (order.getStatus() == OrderStatus.CONFIRMED) {
+            return;
+        }
+
+        order.confirm();
+        outboxEventService.save(buildOrderApproved(order));
+    }
+
+    @Transactional
     public void onPaymentRejected(UUID orderId, String reason) {
-        Order order = ordersRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalStateException("Order not found: " + orderId));
+        Order order = findOrder(orderId);
 
         boolean stockWasReserved = order.getStatus() == OrderStatus.STOCK_RESERVED;
 
@@ -54,6 +78,11 @@ public class OrderSagaService {
         if (stockWasReserved) {
             outboxEventService.save(buildOrderCancelled(order, reason));
         }
+    }
+
+    private Order findOrder(UUID orderId) {
+        return ordersRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order not found: " + orderId));
     }
 
     private OutboxEvent buildOrderCancelled(Order order, String reason) {
@@ -72,5 +101,20 @@ public class OrderSagaService {
         String payload = jsonMapper.writeValueAsString(event);
 
         return OutboxEvent.create(eventId, ORDER_AGGREGATE, order.getId(), ORDER_CANCELLED_EVENT, ORDER_CANCELLED_TOPIC, payload);
+    }
+
+    private OutboxEvent buildOrderApproved(Order order) {
+        UUID eventId = UUID.randomUUID();
+
+        OrderApprovedEvent event = new OrderApprovedEvent(
+                eventId,
+                order.getId(),
+                order.getCustomerId(),
+                order.getTotalAmount(),
+                order.getCurrency(),
+                Instant.now());
+        String payload = jsonMapper.writeValueAsString(event);
+
+        return OutboxEvent.create(eventId, ORDER_AGGREGATE, order.getId(), ORDER_APPROVED_EVENT, ORDER_APPROVED_TOPIC, payload);
     }
 }

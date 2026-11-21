@@ -112,4 +112,12 @@ public class OrderService {
                 item.getUnitPrice(),
                 item.subtotal());
     }
+
+    @Transactional(readOnly = true)
+    public OrderResponse findOneById(UUID id) {
+
+        return ordersRepository.findById(id)
+                .map(this::toResponse)
+                .orElseThrow(() -> new IllegalStateException("Order not found: " + id));
+    }
 }
