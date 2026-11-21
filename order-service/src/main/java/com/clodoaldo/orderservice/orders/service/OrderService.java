@@ -20,7 +20,7 @@ import java.util.UUID;
 import static java.util.Objects.isNull;
 
 /**
- * Serviço de aplicação do agregado {@code Order}: criação idempotente com
+ * Serviço de aplicação do agregado {@link Order}: criação idempotente com
  * gravação no Outbox na mesma transação.
  *
  * @author clodoaldo
