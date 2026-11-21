@@ -20,6 +20,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
+import static java.util.Objects.isNull;
+
 /**
  * Domain que representa a tabela order_status_history.
  *
@@ -70,7 +72,7 @@ public class OrderStatusHistory {
     @PrePersist
     void onPrePersist() {
 
-        if (occurredAt == null) {
+        if (isNull(occurredAt)) {
 
             occurredAt = Instant.now();
         }

@@ -59,7 +59,11 @@ public class OutboxEvent {
     @Column(name = "published_at")
     private Instant publishedAt;
 
-    public static OutboxEvent create(String aggregateType, UUID aggregateId, String eventType, String topic, String payload) {
+    public static OutboxEvent create(UUID id, String aggregateType, UUID aggregateId, String eventType, String topic, String payload) {
+
+        if (isNull(id)) {
+            throw new IllegalArgumentException("id is required");
+        }
 
         if (isNull(aggregateType) || aggregateType.isBlank()) {
             throw new IllegalArgumentException("aggregateType is required");
@@ -83,7 +87,7 @@ public class OutboxEvent {
 
         OutboxEvent event = new OutboxEvent();
 
-        event.id = UUID.randomUUID();
+        event.id = id;
         event.aggregateType = aggregateType;
         event.aggregateId = aggregateId;
         event.eventType = eventType;
@@ -92,6 +96,10 @@ public class OutboxEvent {
         event.attempts = 0;
 
         return event;
+    }
+
+    public static OutboxEvent create(String aggregateType, UUID aggregateId, String eventType, String topic, String payload) {
+        return create(UUID.randomUUID(), aggregateType, aggregateId, eventType, topic, payload);
     }
 
     public void markPublished(Instant publishedAt) {

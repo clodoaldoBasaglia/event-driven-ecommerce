@@ -2,8 +2,8 @@ package com.clodoaldo.orderservice.orderitems.repository;
 
 import com.clodoaldo.orderservice.domain.orderitems.*;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,6 +15,6 @@ import java.util.UUID;
  */
 public interface OrderItemsRepository extends JpaRepository<OrderItem, UUID> {
 
-    Optional<OrderItem> findByOrderId(UUID orderId);
+    List<OrderItem> findByOrderId(UUID orderId);
 
 }

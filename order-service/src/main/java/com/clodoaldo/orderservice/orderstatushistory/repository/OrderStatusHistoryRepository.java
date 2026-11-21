@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author clodoaldo
  * @since 0.0.1 (20/11/2026)
  */
-public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, UUID> {
+public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, Long> {
 
 
     List<OrderStatusHistory> findByOrderIdOrderByOccurredAtAsc(UUID orderId);
