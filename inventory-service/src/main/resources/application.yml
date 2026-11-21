@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: invetory-service
+  profiles:
+    default: dev
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
