@@ -1,7 +1,10 @@
 package com.clodoaldo.orderservice.orderstatushistory.repository;
 
 import com.clodoaldo.orderservice.domain.orderstatushistory.*;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Repository para tratar {@link OrderStatusHistory}.
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Repository;
  * @author clodoaldo
  * @since 0.0.1 (20/11/2026)
  */
-@Repository
-public class OrderStatusHistoryRepository {
+public interface OrderStatusHistoryRepository extends JpaRepository<OrderStatusHistory, UUID> {
+
+
+    List<OrderStatusHistory> findByOrderIdOrderByOccurredAtAsc(UUID orderId);
 }

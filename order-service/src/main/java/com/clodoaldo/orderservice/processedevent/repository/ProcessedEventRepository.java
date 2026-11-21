@@ -1,7 +1,13 @@
 package com.clodoaldo.orderservice.processedevent.repository;
 
 import com.clodoaldo.orderservice.domain.processedevent.ProcessedEvent;
-import org.springframework.stereotype.Repository;
+import io.lettuce.core.dynamic.annotation.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Repository para tratar {@link ProcessedEvent}.
@@ -9,6 +15,12 @@ import org.springframework.stereotype.Repository;
  * @author clodoaldo
  * @since 0.0.1 (20/11/2026)
  */
-@Repository
-public class ProcessedEventRepository {
+public interface ProcessedEventRepository extends JpaRepository<ProcessedEvent, UUID> {
+
+    @Modifying
+    @Query(value = """
+        INSERT INTO processed_event(event_id, handler)
+        VALUES(:eventId, :handler) ON CONFLICT DO NOTHING
+    """, nativeQuery = true)
+    int insertIfAbsent(@Param("eventId") UUID eventId, @Param("handler") String handler);
 }
